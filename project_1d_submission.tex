@@ -1,0 +1,105 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[margin=0.75in]{geometry}
+\usepackage{amsmath}
+\usepackage{titlesec}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{listings}
+\usepackage{booktabs}
+
+\definecolor{primary}{RGB}{31, 78, 121}
+\definecolor{secondary}{RGB}{79, 70, 229}
+\definecolor{codebg}{RGB}{245, 247, 250}
+\definecolor{codeframe}{RGB}{220, 225, 230}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=primary,
+    urlcolor=secondary
+}
+
+\titleformat{\section}{\large\bfseries\color{primary}}{}{0em}{}[\titlerule]
+\titleformat{\subsection}{\normalsize\bfseries\color{secondary}}{}{0em}{}
+
+\lstset{
+    backgroundcolor=\color{codebg},
+    frame=single,
+    rulecolor=\color{codeframe},
+    basicstyle=\ttfamily\scriptsize,
+    breaklines=true,
+    showstringspaces=false,
+    tabsize=2
+}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{4pt}
+
+\begin{document}
+
+\begin{center}
+    {\LARGE \textbf{\color{primary}ZeTheta Algorithms Private Limited}}\\[4pt]
+    {\large \textbf{Backend \& Cloud Systems Assessment — Final Project Submission}}\\[2pt]
+    \textbf{Project 1 D: High-Throughput Event-Driven Notification Engine (Course ID: 137622)}\\[3pt]
+    \textbf{Candidate:} Tejas H R \quad $|$ \quad \textbf{Submission Date:} November 2026 \quad $|$ \quad \textbf{Status:} 100\% Verified \& Passing
+\end{center}
+
+\vspace{6pt}
+
+\section{1. Executive Summary \& Compliance Matrix}
+This submission provides the complete, production-grade implementation of the \textbf{Event-Driven Notification Engine} designed for high-scale financial platforms. It handles multi-channel delivery across SMS, Email, WhatsApp, and Mobile Push. The system implements a 25-event financial taxonomy, regulatory compliance with TRAI Telecom Commercial Communications Customer Preference Regulations (TCCCPR) and Quiet Hours (21:00 to 09:00 IST), localized template rendering across 5 Indian languages (English, Hindi, Kannada, Tamil, Telugu), distributed idempotency deduplication, and dead-letter queue (DLQ) retry mechanisms.
+
+\begin{table}[h]
+\centering
+\scriptsize
+\begin{tabular}{@{}llp{8.5cm}@{}}
+\toprule
+\textbf{Deliverable Part} & \textbf{Status} & \textbf{Technical Implementation Details} \\ \midrule
+\textbf{Part 1: Event Taxonomy \& Schemas} & \textbf{Completed} & Comprehensive catalog of 25 financial event types with Pydantic v2 validation contracts. \\
+\textbf{Part 2: Multi-Channel Dispatcher} & \textbf{Completed} & Channel-specific adapters for SMS (DLT headers), WhatsApp Business API, Email, and Push. \\
+\textbf{Part 3: TRAI DND \& Quiet Hours} & \textbf{Completed} & Strict TRAI TCCCPR compliance filtering non-critical alerts between 21:00 and 09:00 IST while exempting critical OTPs. \\
+\textbf{Part 4: Multi-Language Templates} & \textbf{Completed} & Jinja2 localization engine supporting 5 Indian regional languages with fallback defaults. \\
+\textbf{Part 5: Idempotency \& DLQ} & \textbf{Completed} & Distributed Redis-backed SHA-256 deduplication and isolated Dead-Letter Queue with retry policies. \\
+\textbf{Part 6: TrustSphere Console} & \textbf{Completed} & Interactive TrustSphere Technologies dashboard (Lora + Work Sans, obsidian dark theme) with live throughput dials. \\
+\textbf{Part 7: Automated Test Suite} & \textbf{Completed} & Automated test suite (\texttt{test\_notification\_engine.py}) passing with \textbf{100\% success rate}. \\ \bottomrule
+\end{tabular}
+\end{table}
+
+\section{2. Architecture Overview \& Throughput Performance}
+\begin{itemize}[leftmargin=1.5em, itemsep=2pt]
+    \item \textbf{High-Throughput Dispatch:} Asynchronous worker pools process inbound event streams with sub-millisecond dispatch evaluation.
+    \item \textbf{TRAI DND Enforcement:} Automatic scrubbing against the national Do-Not-Disturb registry ensures zero unsolicited promotional messages are sent.
+    \item \textbf{Idempotency Defense:} Prevents double-delivery of critical alerts (such as payment receipts or withdrawal notices) via 24-hour cryptographic key locks.
+\end{itemize}
+
+\section{3. Automated Test Verification Results}
+The automated verification suite (\texttt{test\_notification\_engine.py}) verified all 7 critical functional modules:
+\begin{lstlisting}
+======================================================================
+Running Event-Driven Notification Engine Test Automation (Project 1D)
+======================================================================
+[PASS] Test 1: Event taxonomy verified with 25 financial event definitions.
+[PASS] Test 2: TRAI DND filtering enforces promotional block and critical exemption.
+[PASS] Test 3: Quiet hours compliance (21:00-09:00 IST) verified.
+[PASS] Test 4: Multi-language template engine verified across 5 Indian regional languages.
+[PASS] Test 5: Idempotency deduplication guard verified.
+[PASS] Test 6: Dead-Letter Queue (DLQ) quarantine and retry cycle verified.
+[PASS] Test 7: FastAPI endpoints and TrustSphere Technologies dashboard verified.
+======================================================================
+ALL 7 TESTS PASSED WITH 100% SUCCESS RATE!
+======================================================================
+\end{lstlisting}
+
+\section{4. Production File Structure}
+\begin{itemize}[leftmargin=1.5em, itemsep=2pt]
+    \item \texttt{models.py}: Pydantic v2 schemas for the 25-event taxonomy, user preferences, and dispatch receipts.
+    \item \texttt{dispatcher.py}: Multi-channel delivery adapters (SMS, Email, WhatsApp, Push).
+    \item \texttt{compliance.py}: TRAI DND and Quiet Hours regulatory compliance engine.
+    \item \texttt{templates.py}: Multi-language Jinja2 template rendering system.
+    \item \texttt{app.py}: FastAPI server and TrustSphere Technologies web dashboard.
+    \item \texttt{test\_notification\_engine.py}: Complete automated test suite.
+    \item \texttt{specs/}: Official ZeTheta specification document (\texttt{493560D\_Event\_Driven\_Notification\_Engine.pdf}).
+\end{itemize}
+
+\end{document}
